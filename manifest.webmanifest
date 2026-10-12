@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "StudyFlow AI 학습 플래너",
+  "short_name": "StudyFlow",
+  "description": "날짜별 공부 계획과 시험 D-Day를 관리하는 학습 플래너",
+  "lang": "ko-KR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#6558e8",
+  "icons": [
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6558e8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="StudyFlow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>StudyFlow | AI 학습 플래너</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#f5f7fb,#111522);--panel:light-dark(#fff,#1a2030);--text:light-dark(#182033,#f3f5fb);--muted:light-dark(#778198,#a7b0c5);--line:light-dark(#e6eaf2,#30394c);--accent:light-dark(#6558e8,#9b91ff);--soft:light-dark(#efedff,#2c2850);--green:light-dark(#138a65,#5dd4ae);--red:light-dark(#c45454,#ff9292)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:1120px;margin:auto;padding:24px 18px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;display:grid;place-items:center;background:var(--accent);color:white;border-radius:14px;font-size:22px;font-weight:800}.brand h1{font-size:21px;margin:0;letter-spacing:-.5px}.brand p{margin:0;color:var(--muted);font-size:12px}.date-label{color:var(--muted);font-size:13px;text-align:right}
+.hero{background:linear-gradient(120deg,#6558e8,#8275f4 70%,#9c8df9);color:white;border-radius:24px;padding:27px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:20px;overflow:hidden}.hero h2{font-size:clamp(23px,4vw,32px);line-height:1.2;margin:0 0 10px;letter-spacing:-.8px}.hero p{margin:0;opacity:.88;font-size:14px;max-width:560px}.hero-mark{font-size:65px;opacity:.9;flex-shrink:0}.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:21px;min-width:0}.panel h3{margin:0;font-size:17px;letter-spacing:-.3px}.sub{font-size:12px;color:var(--muted);margin:5px 0 18px}.field{margin-bottom:15px}.field label{display:block;font-size:13px;font-weight:650;margin-bottom:7px}.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:11px 12px;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--accent)}.subject-list{display:grid;gap:9px}.subject-row{display:grid;grid-template-columns:1fr 102px;gap:8px;align-items:center}.subject-row input{min-width:0}.subject-row select{padding:10px 8px}.hint{font-size:11px;color:var(--muted);margin-top:6px}.primary{width:100%;border-radius:12px;background:var(--accent);color:white;font-weight:750;padding:13px;margin-top:5px}.primary:hover{filter:brightness(1.06)}.secondary{background:var(--soft);color:var(--accent);padding:9px 12px;border-radius:10px;font-weight:700;font-size:12px}.right{display:grid;gap:18px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:25px;font-weight:800;letter-spacing:-.6px;margin-top:4px}.stat .tiny{font-size:11px;color:var(--muted)}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.progress-track{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:12px 0 18px}.progress-fill{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .2s}.task-list{display:grid;gap:10px}.task{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:13px}.task input{accent-color:var(--green);width:18px;height:18px;margin-top:3px;flex-shrink:0}.task-main{flex:1;min-width:0}.task-title{font-weight:700;font-size:14px}.task.done .task-title{text-decoration:line-through;color:var(--muted)}.task-meta{font-size:12px;color:var(--muted);margin-top:3px}.pill{font-size:11px;border-radius:99px;padding:4px 8px;background:var(--soft);color:var(--accent);white-space:nowrap;height:max-content}.empty{padding:28px 12px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:14px}.coach{background:var(--soft);border-radius:15px;padding:16px}.coach-title{font-weight:800;color:var(--accent);font-size:13px;margin-bottom:7px}.coach p{margin:0;font-size:13px}.footnote{font-size:11px;color:var(--muted);margin:16px 2px 0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--panel);padding:10px 16px;border-radius:12px;font-size:13px;display:none;box-shadow:0 8px 30px #0002}
+
+.calendar-panel{margin-bottom:20px}.calendar-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.calendar-nav{display:flex;align-items:center;gap:8px}.calendar-month{font-weight:800;min-width:120px;text-align:center}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:var(--muted);font-size:11px;padding:5px 0}.day{min-height:55px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:6px 3px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px}.day.outside{opacity:.38}.day.selected{border:2px solid var(--accent);background:var(--soft)}.day.today .day-number{font-weight:900}.day-number{font-size:13px}.day-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}.day-label{font-size:9px;color:var(--muted);line-height:1.1}.calendar-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:12px;color:var(--muted);font-size:12px}.selected-date-title{font-weight:800}.date-plan-form{display:grid;grid-template-columns:minmax(0,1fr) 100px auto;gap:8px;margin:14px 0}.date-plan-form input{min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text)}.date-plan-form button{border-radius:10px;background:var(--accent);color:white;font-weight:700;padding:9px 12px}.exam-countdown{margin-top:8px;padding:10px 12px;background:var(--soft);border-radius:11px;color:var(--accent);font-size:13px;font-weight:800}.calendar-legend{display:flex;gap:12px;align-items:center}.calendar-legend span{display:inline-flex;align-items:center;gap:5px}.legend-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+@media(max-width:430px){.day{min-height:45px;padding:5px 1px}.day-label{font-size:8px}.date-plan-form{grid-template-columns:minmax(0,1fr) 82px}.date-plan-form button{grid-column:1/-1}.calendar-top{align-items:flex-start}}
+
+@media(max-width:780px){.layout{grid-template-columns:1fr}.hero{padding:22px}.hero-mark{font-size:48px}.stats{gap:8px}.stat{padding:12px}.stat .value{font-size:21px}.app{padding:18px 13px 36px}.panel{padding:17px}}
+@media(max-width:390px){.stats{grid-template-columns:1fr}.hero-mark{display:none}.date-label{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">S</div><div><h1>StudyFlow</h1><p>나에게 맞는 공부 습관 만들기</p></div></div><div class="date-label" id="today"></div></header>
+<section class="hero"><div><h2>오늘의 공부,<br>더 똑똑하게 계획해요.</h2><p>시험 일정과 과목별 자신감을 입력하면 우선순위를 계산해 학습 계획을 추천해 드려요.</p><div class="exam-countdown" id="examCountdown">시험 날짜를 설정해 주세요.</div></div><div class="hero-mark">✦</div></section>
+<section class="panel calendar-panel">
+  <div class="calendar-top">
+    <div><h3>월간 학습 달력</h3><p class="sub" style="margin-bottom:0">날짜를 선택해 미리 공부 계획을 추가하세요.</p></div>
+    <div class="calendar-nav"><button class="secondary" id="prevMonth" type="button" aria-label="이전 달">‹</button><div class="calendar-month" id="calendarMonth"></div><button class="secondary" id="nextMonth" type="button" aria-label="다음 달">›</button></div>
+  </div>
+  <div class="calendar-grid" id="calendarWeekdays"><div class="weekday">일</div><div class="weekday">월</div><div class="weekday">화</div><div class="weekday">수</div><div class="weekday">목</div><div class="weekday">금</div><div class="weekday">토</div></div>
+  <div class="calendar-grid" id="calendarDays"></div>
+  <div class="calendar-foot"><span class="calendar-legend"><span><i class="legend-dot"></i> 계획 있음</span></span><span id="calendarSummary">날짜를 선택하세요.</span></div>
+  <div style="border-top:1px solid var(--line);margin-top:16px;padding-top:15px">
+    <div class="section-head"><div><div class="selected-date-title" id="selectedDateTitle">선택한 날짜</div><div class="sub" style="margin-bottom:0">이 날짜의 계획은 자동으로 저장돼요.</div></div><button class="secondary" id="todayButton" type="button">오늘</button></div>
+    <form class="date-plan-form" id="datePlanForm"><input id="planTitle" placeholder="예: 수학 3단원 오답 정리" maxlength="100" aria-label="공부할 내용" required><input id="planMinutes" type="number" min="5" max="600" step="5" value="30" aria-label="공부 시간(분)" required><button type="submit">＋ 추가</button></form>
+    <div class="hint">공부할 내용과 시간을 입력한 뒤 추가를 누르세요. 날짜별로 따로 관리할 수 있어요.</div>
+  </div>
+</section>
+
+<div class="layout">
+<aside class="panel">
+<h3>나의 학습 조건</h3><p class="sub">정보를 입력하고 맞춤 계획을 생성하세요.</p>
+<div class="field"><label for="examDate">시험 날짜</label><input type="date" id="examDate"></div>
+<div class="field"><label for="hours">하루 공부 가능 시간</label><select id="hours"><option value="1">1시간</option><option value="2">2시간</option><option value="3" selected>3시간</option><option value="4">4시간</option><option value="5">5시간</option><option value="6">6시간</option></select></div>
+<div class="field"><label>과목과 현재 자신감</label><div class="subject-list" id="subjects">
+<div class="subject-row"><input aria-label="과목 이름" value="국어"><select aria-label="국어 자신감"><option value="1">많이 어려움</option><option value="2">어려움</option><option value="3" selected>보통</option><option value="4">자신 있음</option><option value="5">매우 자신 있음</option></select></div>
+<div class="subject-row"><input aria-label="과목 이름" value="영어"><select aria-label="영어 자신감"><option value="1">많이 어려움</option><option value="2">어려움</option><option value="3" selected>보통</option><option value="4">자신 있음</option><option value="5">매우 자신 있음</option></select></div>
+<div class="subject-row"><input aria-label="과목 이름" value="수학"><select aria-label="수학 자신감"><option value="1">많이 어려움</option><option value="2" selected>어려움</option><option value="3">보통</option><option value="4">자신 있음</option><option value="5">매우 자신 있음</option></select></div>
+<div class="subject-row"><input aria-label="과목 이름" value="과학"><select aria-label="과학 자신감"><option value="1">많이 어려움</option><option value="2">어려움</option><option value="3">보통</option><option value="4" selected>자신 있음</option><option value="5">매우 자신 있음</option></select></div>
+</div><div class="hint">자신감이 낮은 과목에 더 많은 시간을 배정해요.</div></div>
+<button class="secondary" id="addSubject" type="button">＋ 과목 추가</button>
+<button class="primary" id="generate" type="button">✦ 맞춤 학습 계획 만들기</button>
+<p class="footnote">현재 버전은 입력값을 바탕으로 우선순위를 계산하는 AI 플래너 프로토타입입니다. 외부 AI 모델 연결 없이 동작합니다.</p>
+</aside>
+<main class="right">
+<div class="stats">
+<div class="stat"><div class="label">오늘의 학습 과제</div><div class="value" id="taskCount">0개</div><div class="tiny">계획된 과제</div></div>
+<div class="stat"><div class="label">예상 공부 시간</div><div class="value" id="studyHours">0분</div><div class="tiny">오늘의 목표</div></div>
+<div class="stat"><div class="label">달성률</div><div class="value" id="completion">0%</div><div class="tiny">완료 과제 기준</div></div>
+</div>
+<section class="panel">
+<div class="section-head"><div><h3 id="dailyPlanHeading">오늘의 학습 계획</h3><div class="sub" style="margin-bottom:0">과제를 완료하면 체크해 주세요.</div></div><button class="secondary" id="reset" type="button">이 날짜 초기화</button></div>
+<div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+<div class="task-list" id="tasks"><div class="empty">왼쪽에서 학습 조건을 입력한 뒤<br>맞춤 학습 계획을 만들어 보세요.</div></div>
+</section>
+<section class="panel"><div class="section-head"><h3>학습 코치의 조언</h3><span class="pill">Study Coach</span></div><div class="coach"><div class="coach-title">✦ 오늘의 추천</div><p id="advice">계획을 생성하면 과목별 자신감과 공부 시간에 맞춘 조언을 확인할 수 있어요.</p></div></section>
+</main>
+</div>
+</div><div class="toast" id="toast"></div>
+<script>
+const $ = id => document.getElementById(id);
+const localDateString = (date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+const parseLocalDate = (value) => { const [y,m,d]=value.split('-').map(Number); return new Date(y,m-1,d,12,0,0,0); };
+const startToday = new Date(); startToday.setHours(0,0,0,0);
+$('today').textContent = startToday.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+const dateInput=$('examDate');
+const defaultExam=new Date(startToday); defaultExam.setDate(defaultExam.getDate()+7);
+dateInput.value=localDateString(defaultExam); dateInput.min=localDateString(startToday);
+let selectedDate=localDateString(startToday);
+let calendarMonth=new Date(startToday.getFullYear(),startToday.getMonth(),1);
+let plansByDate={};
+try { const saved=JSON.parse(localStorage.getItem('studyflow-plans-by-date')||'{}'); if(saved && typeof saved==='object' && !Array.isArray(saved)) plansByDate=saved; } catch(e) { plansByDate={}; }
+let tasks=plansByDate[selectedDate]||[];
+const readSubjects=()=>[...document.querySelectorAll('.subject-row')].map(row=>({name:row.querySelector('input').value.trim(),confidence:Number(row.querySelector('select').value)})).filter(s=>s.name);
+$('addSubject').addEventListener('click',()=>{if(document.querySelectorAll('.subject-row').length>=10){notify('과목은 최대 10개까지 추가할 수 있어요.');return;}const row=document.createElement('div');row.className='subject-row';row.innerHTML='<input aria-label="과목 이름" placeholder="과목 이름"><select aria-label="과목 자신감"><option value="1">많이 어려움</option><option value="2">어려움</option><option value="3" selected>보통</option><option value="4">자신 있음</option><option value="5">매우 자신 있음</option></select>';$('subjects').appendChild(row);});
+function persistCurrent(){plansByDate[selectedDate]=tasks;try{localStorage.setItem('studyflow-plans-by-date',JSON.stringify(plansByDate));}catch(e){notify('저장 공간을 사용할 수 없어요.');}}
+function examDaysLeft(){if(!dateInput.value)return null;const exam=parseLocalDate(dateInput.value);const today=parseLocalDate(localDateString(new Date()));return Math.round((exam-today)/86400000);}
+function renderExamCountdown(){const days=examDaysLeft();const el=$('examCountdown');if(days===null){el.textContent='시험 날짜를 설정해 주세요.';return;}const label=days>0?`D-${days}`:days===0?'D-Day':`D+${Math.abs(days)}`;el.textContent=`📚 시험까지 ${label} · ${parseLocalDate(dateInput.value).toLocaleDateString('ko-KR',{month:'long',day:'numeric'})}`;}
+dateInput.addEventListener('change',()=>{renderExamCountdown();saveSettings();});
+function saveSettings(){try{localStorage.setItem('studyflow-exam-date',dateInput.value);}catch(e){}}
+try{const savedExam=localStorage.getItem('studyflow-exam-date');if(savedExam)dateInput.value=savedExam;}catch(e){}
+function makePlan(){const subjects=readSubjects();if(!subjects.length){notify('과목 이름을 하나 이상 입력해 주세요.');return;}const hours=Number($('hours').value);const days=Math.round((parseLocalDate(dateInput.value)-parseLocalDate(selectedDate))/86400000);const total=hours*60;const ranked=subjects.map(s=>({...s,weight:(6-s.confidence)+Math.max(0,8-days)*.18})).sort((a,b)=>b.weight-a.weight);const weightTotal=ranked.reduce((sum,x)=>sum+x.weight,0);let mins=ranked.map(s=>Math.max(15,Math.floor(total*s.weight/weightTotal/5)*5));let sum=mins.reduce((a,b)=>a+b,0);while(sum>total){const i=mins.findIndex(m=>m>15);if(i<0)break;mins[i]-=5;sum-=5;}while(sum+5<=total){const i=mins.indexOf(Math.min(...mins));mins[i]+=5;sum+=5;}
+tasks=[];ranked.forEach((s,i)=>{const m=mins[i];const review=Math.max(10,Math.round(m*.4/5)*5);tasks.push({id:`${Date.now()}-${i}-a`,title:s.name+' 핵심 개념 복습',detail:'교과서·수업 필기에서 핵심 개념을 정리해요.',minutes:review,subject:s.name,done:false});tasks.push({id:`${Date.now()}-${i}-b`,title:s.name+' 문제 풀이',detail:'문제를 풀고 틀린 문제의 이유를 확인해요.',minutes:Math.max(10,m-review),subject:s.name,done:false});});while(tasks.reduce((a,t)=>a+t.minutes,0)>total){const i=tasks.findIndex(t=>t.minutes>10);if(i<0)break;tasks[i].minutes-=5;}const nearest=ranked[0];$('advice').textContent=days===0?`선택한 날짜가 시험일이에요. ${nearest.name}의 핵심 개념과 오답을 차분히 복습하세요.`:days<=3&&days>=0?`시험이 가까워요. ${nearest.name}처럼 자신감이 낮은 과목을 먼저 복습하고 틀린 문제를 다시 풀어 보세요.`:`${nearest.name} 과목의 자신감이 상대적으로 낮으니 집중 시간을 먼저 확보했어요. 25~40분 공부한 뒤 짧게 쉬고, 마지막에는 오늘 배운 내용을 스스로 설명해 보세요.`;render();persistCurrent();renderCalendar();notify(`${selectedDate} 학습 계획을 만들었어요!`);}
+function render(){const list=$('tasks');list.innerHTML='';if(!tasks.length){list.innerHTML='<div class="empty">이 날짜의 계획이 아직 없어요.<br>위 달력에서 할 일을 추가하거나 맞춤 계획을 만들어 보세요.</div>';}tasks.forEach(t=>{const el=document.createElement('label');el.className='task'+(t.done?' done':'');const check=document.createElement('input');check.type='checkbox';check.checked=!!t.done;check.addEventListener('change',()=>{t.done=check.checked;render();persistCurrent();renderCalendar();});const main=document.createElement('div');main.className='task-main';const title=document.createElement('div');title.className='task-title';title.textContent=t.title;const meta=document.createElement('div');meta.className='task-meta';meta.textContent=(t.detail||'직접 추가한 학습 과제')+' · '+t.minutes+'분';main.append(title,meta);const pill=document.createElement('span');pill.className='pill';pill.textContent=t.subject||'직접 추가';el.append(check,main,pill);list.appendChild(el);});const count=tasks.length,done=tasks.filter(t=>t.done).length,minutes=tasks.reduce((sum,t)=>sum+Number(t.minutes||0),0);$('taskCount').textContent=count+'개';$('studyHours').textContent=minutes>=60?Math.floor(minutes/60)+'시간'+(minutes%60?' '+minutes%60+'분':''):minutes+'분';$('completion').textContent=(count?Math.round(done/count*100):0)+'%';$('progress').style.width=(count?done/count*100:0)+'%';}
+function renderCalendar(){const year=calendarMonth.getFullYear(),month=calendarMonth.getMonth();$('calendarMonth').textContent=`${year}년 ${month+1}월`;const days=$('calendarDays');days.innerHTML='';const first=new Date(year,month,1);const start=new Date(year,month,1-first.getDay());for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const key=localDateString(d);const dayTasks=plansByDate[key]||[];const btn=document.createElement('button');btn.type='button';btn.className='day'+(d.getMonth()!==month?' outside':'')+(key===selectedDate?' selected':'')+(key===localDateString(new Date())?' today':'');btn.setAttribute('aria-label',`${key}${dayTasks.length?' 계획 '+dayTasks.length+'개':''}`);const num=document.createElement('span');num.className='day-number';num.textContent=d.getDate();btn.appendChild(num);if(dayTasks.length){const dot=document.createElement('i');dot.className='day-dot';btn.appendChild(dot);const label=document.createElement('span');label.className='day-label';label.textContent=`${dayTasks.filter(t=>t.done).length}/${dayTasks.length}`;btn.appendChild(label);}btn.addEventListener('click',()=>selectDate(key));days.appendChild(btn);}const selectedTasks=plansByDate[selectedDate]||[];$('calendarSummary').textContent=`선택한 날짜 계획 ${selectedTasks.length}개`;$('selectedDateTitle').textContent=parseLocalDate(selectedDate).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});$('dailyPlanHeading').textContent=selectedDate===localDateString(new Date())?'오늘의 학습 계획':`${parseLocalDate(selectedDate).toLocaleDateString('ko-KR',{month:'long',day:'numeric'})} 학습 계획`;}
+function selectDate(key){persistCurrent();selectedDate=key;tasks=Array.isArray(plansByDate[key])?plansByDate[key]:[];calendarMonth=new Date(parseLocalDate(key).getFullYear(),parseLocalDate(key).getMonth(),1);render();renderCalendar();}
+$('prevMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()-1,1);renderCalendar();});$('nextMonth').addEventListener('click',()=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+1,1);renderCalendar();});$('todayButton').addEventListener('click',()=>selectDate(localDateString(new Date())));
+$('datePlanForm').addEventListener('submit',e=>{e.preventDefault();const title=$('planTitle').value.trim();const minutes=Number($('planMinutes').value);if(!title){notify('공부할 내용을 입력해 주세요.');return;}if(!Number.isFinite(minutes)||minutes<5||minutes>600){notify('공부 시간은 5~600분으로 입력해 주세요.');return;}tasks.push({id:`manual-${Date.now()}`,title,detail:'직접 등록한 학습 계획',minutes,subject:'개인 계획',done:false});$('planTitle').value='';render();persistCurrent();renderCalendar();notify('날짜별 계획을 저장했어요.');});
+$('generate').addEventListener('click',makePlan);$('reset').addEventListener('click',()=>{if(!tasks.length){notify('초기화할 계획이 없어요.');return;}tasks=[];$('advice').textContent='계획을 생성하면 과목별 자신감과 공부 시간에 맞춘 조언을 확인할 수 있어요.';render();persistCurrent();renderCalendar();notify('선택한 날짜의 계획을 초기화했어요.');});
+renderExamCountdown();render();renderCalendar();
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
